@@ -21,13 +21,13 @@ export const Addbar = ({getAllTodos}) => {
     }
 
   return (
-    <form className='form'>
+    <div className='form'>
         <input 
             type="text" 
             placeholder='Digite o Todo...' 
             value={title} 
             onChange={handleChangeInput}/>
         <button type='submit' onClick={handleAddTodo}>Add Todo</button>
-    </form>
+    </div>
   )
 }

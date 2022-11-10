@@ -10,7 +10,7 @@ class Api{
     //adicionar um Todo
     addTodo = async (title) => {
         try {
-            const { data } = await this.api.post('/todos', { title });
+            const { data } = await this.api.post('/', {title});
             console.log(data)
             return data; 
         } catch (error) {
@@ -46,6 +46,18 @@ class Api{
             await this.api.delete(`/${id}`)
         } catch (error) {
             console.log(error, `Could not delete this Todo`)
+        }
+    }
+
+    //login
+    login = async (user) => {
+        try {
+            const { data } = await this.api.post('/auth/login', user)
+            localStorage.setItem('token', data.token)
+            localStorage.setItem('user', JSON.stringify(data.user))
+            return data
+        } catch (error) {
+            throw error.response;
         }
     }
 

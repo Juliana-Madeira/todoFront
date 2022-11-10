@@ -1,10 +1,10 @@
 import React from 'react';
-import { TodoItem } from '../TodoItem/TodoItem.js';
+import { TodoItem } from '../TodoItem/TodoItem';
 
 export const TodoList = ({todos, getAllTodos}) => {
   return (
     <div>
-        {todos.map(todo => <TodoItem key={todo._id} {...todo} getAllTodos={getAllTodos}/>)}
+      {todos.map((todo) => <TodoItem key={todo._id} {...todo} getAllTodos={getAllTodos}/>)}
     </div>
   )
 }

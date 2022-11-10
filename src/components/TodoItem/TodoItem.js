@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import apiTodos from '../../utils/api.utils';
 
+// import '../TodoItem/TodoItem.css';
+
 export const TodoItem = ({ title, completed, _id, getAllTodos}) => {
 
     const [checked, setChecked] = useState(completed);
