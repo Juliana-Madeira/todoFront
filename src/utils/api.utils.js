@@ -57,18 +57,16 @@ class Api{
     //atualizar um Todo
     updateTodo = async (id, todo) => {
         try {
-            const { data } = await this.api.put(`/todos/${id}`, todo);
-            return data
+            await this.api.put(`/todos/${id}`, todo);
         } catch (error) {
             console.log(error, `Could not update this Todo`)
-            
         }
     }
 
     //deletar um Todo
-    deleteTodo = async (id) => {
+    deleteTodo = async (id, todo) => {
         try {
-            await this.api.delete(`/todos/${id}`)
+            await this.api.delete(`/todos/${id}`, todo)
         } catch (error) {
             console.log(error, `Could not delete this Todo`)
         }
