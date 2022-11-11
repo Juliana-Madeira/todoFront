@@ -10,20 +10,17 @@ export const FormLogin = () => {
 
     const navigate = useNavigate();
 
-    const resetForm = () => {
-        setEmail('')
-        setPassword('')
-    }
-
+    
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
             await apiTodos.login({email, password})
-            resetForm()
-            navigate('/')
+            navigate('/todos')
         } catch (error) {
             console.log(error.status)
         }
+        setEmail('')
+        setPassword('')
     }
 
 

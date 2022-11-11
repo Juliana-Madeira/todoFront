@@ -3,7 +3,7 @@ import apiTodos from '../../utils/api.utils'
 
 import '../Addbar/Addbar.css';
 
-export const Addbar = ({getAllTodos}) => {
+export const Addbar = ({getMyAllTodos}) => {
     const [title, setTitle] = useState('');
 
     const handleChangeInput = (e) => {
@@ -14,7 +14,7 @@ export const Addbar = ({getAllTodos}) => {
         try {
             await apiTodos.addTodo(title)
             setTitle('')
-            await getAllTodos()
+            await getMyAllTodos()
         } catch (error) {
             console.log(error, `Could not add a new Todo`)
         }

@@ -3,14 +3,39 @@ import axios from 'axios';
 class Api{
     constructor() {
         this.api = axios.create({
-            baseURL: "http://localhost:5000/todos"
+            baseURL: "http://localhost:5000/"
         })
+
+        this.api.interceptors.request.use(
+            (config) => {
+                const token = localStorage.getItem('token')
+                if(token){
+                    config.headers = {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+                return config
+            },
+            (error) => {
+                console.log(error)
+            }
+        )
+
+        this.api.interceptors.response.use(
+            (response) => response,
+            (error) => {
+                if(error.response.status === 401){
+                    localStorage.removeItem('token')
+                }
+                throw error
+            }
+        )
     }
 
     //adicionar um Todo
     addTodo = async (title) => {
         try {
-            const { data } = await this.api.post('/', {title});
+            const { data } = await this.api.post('/todos', {title});
             console.log(data)
             return data; 
         } catch (error) {
@@ -21,7 +46,7 @@ class Api{
     //pegar all Todos
     getTodos = async () => {
         try {
-            const { data } = await this.api.get('/');
+            const { data } = await this.api.get('/todos');
             console.log(data)
             return data;
         } catch (error) {
@@ -32,7 +57,7 @@ class Api{
     //atualizar um Todo
     updateTodo = async (id, todo) => {
         try {
-            const { data } = await this.api.put(`/${id}`, todo);
+            const { data } = await this.api.put(`/todos/${id}`, todo);
             return data
         } catch (error) {
             console.log(error, `Could not update this Todo`)
@@ -43,7 +68,7 @@ class Api{
     //deletar um Todo
     deleteTodo = async (id) => {
         try {
-            await this.api.delete(`/${id}`)
+            await this.api.delete(`/todos/${id}`)
         } catch (error) {
             console.log(error, `Could not delete this Todo`)
         }
@@ -65,6 +90,7 @@ class Api{
     signup = async (signupInfo) => {
         try {
             const { data } = await this.api.post('/auth/signup', signupInfo)
+            return data
         } catch (error) {
             throw error.response;
         }

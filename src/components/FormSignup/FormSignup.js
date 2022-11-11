@@ -13,7 +13,7 @@ export const FormSignup = () => {
       e.preventDefault()
       try {
         const user = await apiTodos.signup({username, email, password})
-        console.log('account created')
+        console.log(user, 'account created')
         navigate('/login')
       } catch (error) {
         console.error(error)
