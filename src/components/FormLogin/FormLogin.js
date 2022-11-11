@@ -28,7 +28,7 @@ export const FormLogin = () => {
 
 
   return (
-    <form className='form-login'>
+    <form className='form-login' onSubmit={handleSubmit}>
         <input 
             type="email" 
             name='email' 

@@ -50,12 +50,21 @@ class Api{
     }
 
     //login
-    login = async (user) => {
+    login = async (loginInfo) => {
         try {
-            const { data } = await this.api.post('/auth/login', user)
+            const { data } = await this.api.post('/auth/login', loginInfo)
             localStorage.setItem('token', data.token)
-            localStorage.setItem('user', JSON.stringify(data.user))
+            // localStorage.setItem('user', JSON.stringify(data.user))
             return data
+        } catch (error) {
+            throw error.response;
+        }
+    }
+
+    //signup
+    signup = async (signupInfo) => {
+        try {
+            const { data } = await this.api.post('/auth/signup', signupInfo)
         } catch (error) {
             throw error.response;
         }

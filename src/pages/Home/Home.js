@@ -1,35 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { TodoList } from '../../components/TodoList/TodoList';
-import { Addbar } from '../../components/Addbar/Addbar';
-
-import apiTodos from '../../utils/api.utils';
+import '../Home/Home.css';
 
 export const Home = () => {
-    const [todos, setTodos] = useState([]);
+   
+    const navigate = useNavigate()
 
-    const navigate = useNavigate();
-
-    const getAllTodos = async () => {
-        try {
-            const data = await apiTodos.getTodos();
-            setTodos(data)
-        } catch (error) {
-            console.log(error, `Error to connect to api`)
-            navigate('/login')
-        }
+    const handleLogin = () => {
+        navigate('/login')
     }
 
-    useEffect(() => {
-        getAllTodos()
-    }, [])
-    
+    const handleSignup = () => {
+        navigate('signup')
+    }
 
   return (
-    <div>
-        <Addbar getAllTodos={getAllTodos}/>
-        {/* <TodoList todos={todos} getAllTodos={getAllTodos}/> */}
+    <div className='home'>
+        <button className='btn-home' onClick={handleLogin}>Login</button>
+        <button className='btn-home' onClick={handleSignup}>Signup</button>
     </div>
   )
 }
